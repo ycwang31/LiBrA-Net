@@ -1,4 +1,4 @@
-# LiBrA-Net
+# LiBrA-Net (If the online folder view appears empty, please download the ZIP file — all contents are intact. This is a known Anonymous GitHub display issue.)
 
 **LiBrA-Net: Lie-Algebraic Bilateral Affine Fields for Real-Time 4K Video Dehazing**
 
