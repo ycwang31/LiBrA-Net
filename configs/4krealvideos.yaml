@@ -1,0 +1,34 @@
+model:
+  backbone_channels: [24, 48, 96, 192]
+  color_bins: 8
+  coeff_dim: 12
+  temporal_num_frames: 5
+  encode_size: 256
+  temporal_attn_heads: 8
+  drop_path_rate: 0.10
+  grid_dropout: 0.10
+  detail_unshuffle: 4
+  detail_channels: 48
+
+data:
+  dataset_root: ./datasets/4krealvideos_dataset
+  test_split: test
+  num_frames: 5
+  test_num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 3
+
+eval:
+  distributed: false
+  metrics: [fps]
+  save_images: false
+
+test:
+  checkpoint: null
+  output_dir: ./results/4krealvideos
+  save_images: true
+
+distributed:
+  backend: nccl
+  find_unused_parameters: false

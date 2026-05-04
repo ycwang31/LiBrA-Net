@@ -1,0 +1,66 @@
+model:
+  backbone_channels: [24, 48, 96, 192]
+  color_bins: 8
+  coeff_dim: 12
+  temporal_num_frames: 5
+  encode_size: 256
+  temporal_attn_heads: 8
+  drop_path_rate: 0.10
+  grid_dropout: 0.10
+  detail_unshuffle: 4
+  detail_channels: 48
+
+data:
+  dataset_root: ./datasets/HazeWorld_REVIDE
+  train_split: Train
+  val_split: Test
+  test_split: Test
+  train_crop_size: 512
+  num_frames: 5
+  train_num_workers: 8
+  val_num_workers: 4
+  test_num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 3
+
+train:
+  epochs: 100
+  batch_size: 2
+  optimizer: AdamW
+  lr: 1.5e-4
+  weight_decay: 1.0e-4
+  warmup_epochs: 5
+  grad_clip_max_norm: 1.0
+  amp: true
+  log_every_steps: 1300
+  val_distributed: false
+  val_metrics: [psnr, ssim, fps]
+  val_every_epochs: 100
+  save_every_epochs: 200
+
+  loss_pixel_weight: 1.0
+  loss_perc_weight: 0.04
+  loss_lie_weight: 0.2
+  lie_temporal_weight: 0.10
+
+  charbonnier_eps: 1.0e-3
+  checkpoint_dir: ./checkpoints/hazeworld
+  log_dir: ./logs/hazeworld
+
+  early_stopping_patience: 300
+
+eval:
+  distributed: false
+  metrics: [psnr, ssim, lpips, fps]
+  max_samples: null
+  save_images: false
+
+test:
+  checkpoint: null
+  output_dir: ./results/hazeworld
+  save_images: true
+
+distributed:
+  backend: nccl
+  find_unused_parameters: false

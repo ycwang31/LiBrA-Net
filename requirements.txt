@@ -1,0 +1,20 @@
+torch>=2.1
+torchvision>=0.16
+numpy>=1.24
+scipy>=1.10
+opencv-python>=4.8
+tqdm>=4.66
+PyYAML>=6.0
+scikit-image>=0.21
+tensorboard>=2.14
+
+
+lpips>=0.1.4
+
+ultralytics>=8.1        # YOLOv8-X detection
+transformers>=4.36      # SegFormer-B5 (nvidia/segformer-b5-finetuned-ade-640-640)
+Pillow>=10.0            # Round-corner bbox + label rendering
+matplotlib>=3.7         # Composition figures
+
+
+pyiqa>=0.1.11           
