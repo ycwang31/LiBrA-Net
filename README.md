@@ -1,114 +1,162 @@
-# LiBrA-Net (If the online folder view appears empty, please download the ZIP file — all contents are intact. This is a known Anonymous GitHub display issue.)
+# LiBrA-Net: Lie-Algebraic Bilateral Affine Fields for Real-Time 4K Video Dehazing
 
-**LiBrA-Net: Lie-Algebraic Bilateral Affine Fields for Real-Time 4K Video Dehazing**
-
-A real-time video dehazing framework that factorizes the spatiotemporal affine field into a pair of compact bilateral sub-grids, fuses them in the Lie algebra $\mathfrak{gl}(3)$ via a Cayley parameterization, and recovers high-frequency detail through a lightweight input-guided branch. LiBrA-Net achieves state-of-the-art dehazing quality at native 4K resolution (**25 FPS**, 6.12M parameters, 282 GFLOPs on a single GPU).
+LiBrA-Net is a video dehazing framework for native 4K content. It factorizes the spatiotemporal affine field into compact spatial-color and temporal bilateral grids, fuses their transformations in the Lie algebra $\mathfrak{gl}(3)$ through a Cayley parameterization, and restores high-frequency content with an input-guided detail recovery branch.
 
 ## UHV-4K Dataset
 
-We release **UHV-4K**, the first paired 4K video dehazing benchmark with depth, transmission, and optical-flow annotations. It contains 100 native 3840×2160 videos across seven scene categories.
+UHV-4K is a paired 4K video dehazing benchmark containing 100 videos at 3840 × 2160 resolution across seven scene categories. The dataset includes clean and hazy video pairs together with depth, transmission, and optical-flow annotations.
 
-Details on synthesis pipeline and quality checks are described in the paper.
+| Resource | Link |
+| --- | --- |
+| UHV-4K dataset | [Baidu Netdisk (code: `9w57`)](https://pan.baidu.com/s/1Phz1A3r0pxWTRoQEmRq47g?pwd=9w57) |
 
-## Installation
+Arrange each dataset as follows:
 
-### Requirements
-
-- Python >= 3.10
-- PyTorch >= 2.1
-- CUDA-compatible GPU (recommended)
-
-### Setup
-
-```bash
-git clone https://github.com/ANO_REPO/LiBrA-Net.git
-cd LiBrA-Net
-pip install -r requirements.txt
-```
-
-### Pre-trained Weights
-
-Download the DINOv2 ViT-S/14 pre-trained weights (required for perceptual loss during training):
-
-```bash
-wget https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth
-```
-
-## Dataset Preparation
-
-The expected dataset structure follows the format:
-
-```
+```text
 dataset_root/
-├── Train/  (or train/)
+├── Train/
 │   ├── hazy/
 │   │   ├── sequence_001/
 │   │   │   ├── 00000.jpg
+│   │   │   ├── 00001.jpg
 │   │   │   └── ...
-│   │   └── sequence_002/
+│   │   └── ...
 │   └── gt/
 │       ├── sequence_001/
-│       └── sequence_002/
-└── Test/  (or test/)
+│       │   ├── 00000.jpg
+│       │   ├── 00001.jpg
+│       │   └── ...
+│       └── ...
+└── Test/
     ├── hazy/
     └── gt/
 ```
 
-### Supported Datasets
+The split names are case-insensitive. Frame names must use zero-padded indices such as `00000.jpg`; `.png`, `.jpg`, and `.jpeg` are supported.
 
-| Dataset | Config | Description |
-|---------|--------|-------------|
-| [REVIDE](https://github.com/BookerDeWitt/REVIDE_Dataset) | `configs/revide.yaml` | Real-world video dehazing dataset |
-| [HazeWorld](https://github.com/jiaqixuac/MAP-Net) | `configs/hazeworld.yaml` | Large-scale haze synthesis dataset |
-| UHV-4K | `configs/4kbenchmark.yaml` | Our 4K video dehazing benchmark |
+## Requirements
 
-Update `data.dataset_root` in the corresponding config YAML to point to your dataset path.
+- Python 3.10+
+- PyTorch 2.1+
+- CUDA-capable GPU
+
+Install the Python dependencies:
+
+```bash
+git clone https://github.com/ycwang31/LiBrA-Net.git
+cd LiBrA-Net
+pip install -r requirements.txt
+```
+
+Training uses a local DINOv2 ViT-S/14 backbone for perceptual supervision. Place the DINOv2 repository and weights at the paths expected by `losses.py`:
+
+```bash
+mkdir -p pretrained
+git clone https://github.com/facebookresearch/dinov2.git pretrained/facebookresearch_dinov2_main
+wget -O pretrained/dinov2_vits14_pretrain.pth \
+  https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth
+```
+
+## Configuration
+
+Set `data.dataset_root` in the selected YAML file before training or evaluation.
+
+| Dataset | Configuration |
+| --- | --- |
+| UHV-4K | `configs/4kbenchmark.yaml` |
+| REVIDE | `configs/revide.yaml` |
+| HazeWorld | `configs/hazeworld.yaml` |
+| Real-world 4K videos | `configs/4krealvideos.yaml` |
 
 ## Training
 
-### Single GPU
+Single-GPU training:
 
 ```bash
-python train.py --config configs/revide.yaml --model ours
+python train.py --config configs/4kbenchmark.yaml --model ours
 ```
 
-### Multi-GPU (DDP)
+Multi-GPU training with DistributedDataParallel:
 
 ```bash
-torchrun --nproc_per_node=8 train.py --config configs/revide.yaml --model ours
+torchrun --nproc_per_node=8 train.py \
+  --config configs/4kbenchmark.yaml \
+  --model ours
+```
+
+Resume a run with full optimizer and scheduler state:
+
+```bash
+python train.py \
+  --config configs/4kbenchmark.yaml \
+  --model ours \
+  --resume checkpoints/4kbenchmark/ours/last.pth
 ```
 
 ## Evaluation
 
-### Standard Evaluation (with GT)
+Evaluate paired videos with PSNR, SSIM, LPIPS, runtime, parameter count, and optional FLOPs:
 
 ```bash
 python test.py \
-    --config configs/revide.yaml \
-    --model ours \
-    --checkpoint checkpoints/revide/ours/last.pth \
-    --save_images
+  --config configs/4kbenchmark.yaml \
+  --model ours \
+  --checkpoint checkpoints/4kbenchmark/ours/best.pth \
+  --save_images
 ```
 
-Metrics computed: **PSNR**, **SSIM**, **LPIPS**, **FPS**, **GFLOPs**.
+Install `thop` to report FLOPs:
 
-### Real-World Evaluation (no GT)
+```bash
+pip install thop
+```
+
+Evaluate real-world videos with no-reference image-quality metrics:
 
 ```bash
 python test_realworld.py \
-    --config configs/4krealvideos.yaml \
-    --model ours \
-    --checkpoint checkpoints/4kbenchmark/ours/last.pth \
-    --video_dir ./path/to/real_videos \
-    --save_images
+  --config configs/4krealvideos.yaml \
+  --model ours \
+  --checkpoint checkpoints/4kbenchmark/ours/best.pth \
+  --video_dir /path/to/video_clips \
+  --save_images
 ```
 
-Metrics computed: **MUSIQ**, **CLIP-IQA+**, **BRISQUE**, **NIQE**.
+Each directory under `video_clips` is treated as one clip and should contain sequentially numbered frames.
 
+Evaluate temporal consistency:
+
+```bash
+python scripts/eval_temporal_consistency.py \
+  --config configs/4kbenchmark.yaml \
+  --model ours \
+  --checkpoint checkpoints/4kbenchmark/ours/best.pth
+```
+
+Benchmark memory and throughput:
+
+```bash
+python scripts/benchmark_efficiency.py --models Ours
+```
+
+## Project Structure
+
+```text
+LiBrA-Net/
+├── configs/                 # Dataset and experiment configurations
+├── data/                    # Video dataset loader
+├── models/                  # LiBrA-Net architecture
+├── downstream_eval/         # Detection and segmentation evaluation utilities
+├── scripts/                 # Efficiency and temporal-consistency benchmarks
+├── losses.py                # Training objectives
+├── train.py                 # Training entry point
+├── test.py                  # Paired evaluation entry point
+└── test_realworld.py        # No-reference real-world evaluation
+```
 
 ## Acknowledgements
 
-- [DINOv2](https://github.com/facebookresearch/dinov2) for the perceptual loss backbone
-- [REVIDE](https://github.com/BookerDeWitt/REVIDE_Dataset) dataset
-- [HazeWorld](https://github.com/jiaqixuac/MAP-Net) dataset
-- Comparison method authors for their original implementations
+- [DINOv2](https://github.com/facebookresearch/dinov2)
+- [REVIDE](https://github.com/BookerDeWitt/REVIDE_Dataset)
+- [HazeWorld](https://github.com/jiaqixuac/MAP-Net)
+
