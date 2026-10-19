@@ -9,13 +9,13 @@
 
 <p>
 <a href="https://ycwang31.github.io/">Yongcong Wang</a><sup>1</sup>,
-<a href="https://chengchaoshen.github.io/">Chengchao Shen</a><sup>1,*</sup>,
+<a href="https://chengchaoshen.github.io/">Chengchao Shen</a><sup>1,✉</sup>,
 <a href="https://guangweigao.github.io/">Guangwei Gao</a><sup>2</sup>,
 <a href="https://scholar.google.com/citations?user=B-pQ7nAAAAAJ&hl=zh-CN">Wei Wang</a><sup>3</sup>,
 <a href="https://scst.sysu.edu.cn/teacher/DaiPengwen">Pengwen Dai</a><sup>3</sup>,
 <a href="https://scholar.google.com/citations?user=b3QI_AgAAAAJ&hl=zh-CN">Dianjie Lu</a><sup>4</sup>,
 <a href="https://scholar.google.com/citations?hl=zh-CN&user=lQFtIeQAAAAJ&view_op=list_works&sortby=pubdate">Guijuan Zhang</a><sup>4</sup>,
-<a href="https://scholar.google.com.hk/citations?user=pXzPL-sAAAAJ&hl=zh-CN">Zhuoran Zheng</a><sup>5,*</sup>
+<a href="https://scholar.google.com.hk/citations?user=pXzPL-sAAAAJ&hl=zh-CN">Zhuoran Zheng</a><sup>5,✉</sup>
 </p>
 
 <p>
@@ -26,7 +26,7 @@
 <sup>5</sup>National University of Defense Technology
 </p>
 
-<p><sup>*</sup>Corresponding Authors</p>
+<p><sup>✉</sup>Corresponding Authors</p>
 
 <img src="assets/teaser.webp" width="100%" alt="LiBrA-Net teaser">
 
