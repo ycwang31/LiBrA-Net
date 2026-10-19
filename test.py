@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 from data import VideoDehazeDataset
 from utils import build_lpips_metric, evaluate_dehazing_model
 logger = logging.getLogger('dehazing')
-MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet'), 'ours_A1': ('models_ablation', 'AblationA1'), 'ours_A2': ('models_ablation', 'AblationA2'), 'ours_A3': ('models_ablation', 'AblationA3'), 'ours_A4': ('models_ablation', 'AblationA4'), 'ours_A5': ('models_ablation', 'AblationA5'), 'ours_A6': ('models_ablation', 'AblationA6'), 'ours_A7': ('models_ablation', 'AblationA7'), 'ours_A8': ('models_ablation', 'AblationA8'), 'ours_A9': ('models_ablation', 'AblationA9'), 'ours_L1': ('models', 'BilateralGridDehazeNet'), 'ours_L2': ('models', 'BilateralGridDehazeNet'), 'ours_L3': ('models', 'BilateralGridDehazeNet'), 'ours_L4': ('models', 'BilateralGridDehazeNet'), 'ours_L5': ('models', 'BilateralGridDehazeNet'), 'ours_L6': ('models', 'BilateralGridDehazeNet'), 'ours_L7': ('models', 'BilateralGridDehazeNet'), 'ours_L8': ('models', 'BilateralGridDehazeNet')}
+MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet'), 'ours_L1': ('models', 'BilateralGridDehazeNet'), 'ours_L2': ('models', 'BilateralGridDehazeNet'), 'ours_L3': ('models', 'BilateralGridDehazeNet'), 'ours_L4': ('models', 'BilateralGridDehazeNet'), 'ours_L5': ('models', 'BilateralGridDehazeNet'), 'ours_L6': ('models', 'BilateralGridDehazeNet'), 'ours_L7': ('models', 'BilateralGridDehazeNet'), 'ours_L8': ('models', 'BilateralGridDehazeNet')}
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Video Dehazing Testing')
