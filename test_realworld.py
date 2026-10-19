@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 import yaml
 from tqdm.auto import tqdm
-MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet'), 'ours_L1': ('models', 'BilateralGridDehazeNet'), 'ours_L2': ('models', 'BilateralGridDehazeNet'), 'ours_L3': ('models', 'BilateralGridDehazeNet'), 'ours_L4': ('models', 'BilateralGridDehazeNet'), 'ours_L5': ('models', 'BilateralGridDehazeNet'), 'ours_L6': ('models', 'BilateralGridDehazeNet'), 'ours_L7': ('models', 'BilateralGridDehazeNet'), 'ours_L8': ('models', 'BilateralGridDehazeNet')}
+MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet')}
 NR_METRIC_INFO: dict[str, tuple[str, bool]] = {'musiq': ('musiq', False), 'clipiqa': ('clipiqa+', False), 'brisque': ('brisque', True), 'niqe': ('niqe', True)}
 
 def parse_args() -> argparse.Namespace:

@@ -17,8 +17,7 @@ from tqdm.auto import tqdm
 from data import VideoDehazeDataset
 from losses import DehazeLoss
 from utils import AverageMeter, all_reduce_scalar_dict, build_lpips_metric, calc_psnr, calc_ssim, evaluate_dehazing_model, get_cosine_schedule_with_warmup, is_main_process, reduce_tensor_dict, set_seed, setup_distributed, setup_logger, tensor_to_uint8
-MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet'), 'ours_L1': ('models', 'BilateralGridDehazeNet'), 'ours_L2': ('models', 'BilateralGridDehazeNet'), 'ours_L3': ('models', 'BilateralGridDehazeNet'), 'ours_L4': ('models', 'BilateralGridDehazeNet'), 'ours_L5': ('models', 'BilateralGridDehazeNet'), 'ours_L6': ('models', 'BilateralGridDehazeNet'), 'ours_L7': ('models', 'BilateralGridDehazeNet'), 'ours_L8': ('models', 'BilateralGridDehazeNet')}
-_OURS_ARCH_IDENTICAL: frozenset[str] = frozenset({'ours', 'ours_L1', 'ours_L2', 'ours_L3', 'ours_L4', 'ours_L5', 'ours_L6', 'ours_L7', 'ours_L8'})
+MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet')}
 logger = logging.getLogger('dehazing')
 
 def parse_args() -> argparse.Namespace:
@@ -117,12 +116,12 @@ def train(cfg: dict, args: argparse.Namespace) -> None:
     n_params = sum((p.numel() for p in model.parameters())) / 1000000.0
     logger.info('Model [%s] created — %.2fM params', args.model, n_params)
     if distributed:
-        find_unused = cfg['distributed']['find_unused_parameters'] or args.model not in _OURS_ARCH_IDENTICAL
+        find_unused = cfg['distributed']['find_unused_parameters']
         model = DDP(model, device_ids=[local_rank] if torch.cuda.is_available() else None, find_unused_parameters=find_unused)
     train_cfg = cfg['train']
     val_distributed = bool(train_cfg.get('val_distributed', False))
     lie_w = train_cfg.get('loss_lie_weight', 0.3)
-    criterion = DehazeLoss(pixel_weight=train_cfg['loss_pixel_weight'], perc_weight=train_cfg['loss_perc_weight'], lie_weight=lie_w, charbonnier_eps=train_cfg['charbonnier_eps'], lie_temporal_weight=train_cfg.get('lie_temporal_weight', 0.08), lie_smooth_weight=train_cfg.get('lie_smooth_weight', 0.05), lie_identity_weight=train_cfg.get('lie_identity_weight', 0.01), lie_s3_weight=train_cfg.get('lie_s3_weight', 0.02), perc_backbone=train_cfg.get('perc_backbone', 'dinov2')).to(device)
+    criterion = DehazeLoss(pixel_weight=train_cfg['loss_pixel_weight'], perc_weight=train_cfg['loss_perc_weight'], lie_weight=lie_w, charbonnier_eps=train_cfg['charbonnier_eps'], lie_temporal_weight=train_cfg.get('lie_temporal_weight', 0.08), lie_smooth_weight=train_cfg.get('lie_smooth_weight', 0.05), lie_identity_weight=train_cfg.get('lie_identity_weight', 0.01), lie_s3_weight=train_cfg.get('lie_s3_weight', 0.02)).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=train_cfg['lr'], weight_decay=train_cfg['weight_decay'])
     (train_dataset, train_loader) = build_dataloader(cfg, 'train', distributed)
     val_loader: DataLoader | None = None

@@ -14,7 +14,7 @@ import yaml
 from tqdm.auto import tqdm
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from utils import calc_psnr_torch
-MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet'), 'ours_L8': ('models', 'BilateralGridDehazeNet')}
+MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet')}
 
 def build_model(cfg: dict, model_name: str, checkpoint: str, device: torch.device) -> nn.Module:
     (module_path, class_name) = MODEL_REGISTRY[model_name]

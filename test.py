@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 from data import VideoDehazeDataset
 from utils import build_lpips_metric, evaluate_dehazing_model
 logger = logging.getLogger('dehazing')
-MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet'), 'ours_L1': ('models', 'BilateralGridDehazeNet'), 'ours_L2': ('models', 'BilateralGridDehazeNet'), 'ours_L3': ('models', 'BilateralGridDehazeNet'), 'ours_L4': ('models', 'BilateralGridDehazeNet'), 'ours_L5': ('models', 'BilateralGridDehazeNet'), 'ours_L6': ('models', 'BilateralGridDehazeNet'), 'ours_L7': ('models', 'BilateralGridDehazeNet'), 'ours_L8': ('models', 'BilateralGridDehazeNet')}
+MODEL_REGISTRY: dict[str, tuple[str, str]] = {'ours': ('models', 'BilateralGridDehazeNet')}
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Video Dehazing Testing')

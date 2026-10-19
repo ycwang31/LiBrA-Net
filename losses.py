@@ -64,17 +64,13 @@ def regularization_loss(grids: dict[str, dict[str, torch.Tensor]]) -> torch.Tens
 
 class DehazeLoss(nn.Module):
 
-    def __init__(self, pixel_weight: float=1.0, perc_weight: float=0.04, lie_weight: float=0.3, charbonnier_eps: float=0.001, lie_temporal_weight: float=0.08, lie_smooth_weight: float=0.05, lie_identity_weight: float=0.01, lie_s3_weight: float=0.02, perc_backbone: str='dinov2') -> None:
+    def __init__(self, pixel_weight: float=1.0, perc_weight: float=0.04, lie_weight: float=0.3, charbonnier_eps: float=0.001, lie_temporal_weight: float=0.08, lie_smooth_weight: float=0.05, lie_identity_weight: float=0.01, lie_s3_weight: float=0.02) -> None:
         super().__init__()
         self.pixel_weight = pixel_weight
         self.perc_weight = perc_weight
         self.lie_weight = lie_weight
         self.charbonnier_eps = charbonnier_eps
-        if perc_backbone == 'vgg19':
-            from models_ablation.vgg_perceptual import VGG19FeatureExtractor
-            self.feat_extractor = VGG19FeatureExtractor()
-        else:
-            self.feat_extractor = DINOv2FeatureExtractor()
+        self.feat_extractor = DINOv2FeatureExtractor()
         self.lie_reg = None
         if lie_weight > 0:
             from models.lie_group import LieRegularization
