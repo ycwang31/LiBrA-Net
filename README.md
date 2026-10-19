@@ -21,7 +21,7 @@ Zhuoran Zheng<sup>5,*</sup>
 <p>
 <sup>1</sup>Central South University,
 <sup>2</sup>Nanjing University of Science and Technology,
-<sup>3</sup>Sun Yat-sen University,
+<sup>3</sup>Sun Yat-sen University,<br>
 <sup>4</sup>Shandong Normal University,
 <sup>5</sup>National University of Defense Technology
 </p>
