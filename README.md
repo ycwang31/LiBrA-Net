@@ -204,9 +204,10 @@ LiBrA-Net/
 
 ## 🙏 Acknowledgements
 
-- [DINOv2](https://github.com/facebookresearch/dinov2)
-- [REVIDE](https://github.com/BookerDeWitt/REVIDE_Dataset)
-- [HazeWorld](https://github.com/jiaqixuac/MAP-Net)
+We sincerely thank the authors of the following open-source projects for making their code and data publicly available:
+
+- [DINOv2](https://github.com/facebookresearch/dinov2), whose pretrained backbone provides the perceptual supervision used in training.
+- [REVIDE](https://github.com/BookerDeWitt/REVIDE_Dataset) and [HazeWorld](https://github.com/jiaqixuac/MAP-Net), whose benchmarks are used for evaluation.
 
 ## 📝 Citation
 
