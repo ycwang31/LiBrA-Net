@@ -3,8 +3,8 @@
 <h1>🌫️ LiBrA-Net: Lie-Algebraic Bilateral Affine Fields for Real-Time 4K Video Dehazing</h1>
 
 <p>
-🔗 <a href="https://arxiv.org/abs/2605.11508">arXiv</a> |
-💾 <a href="https://pan.baidu.com/s/1Zp8p0xtcmW2Fchs45gAyqg?pwd=4rh5">UHV-4K Dataset</a>
+  <a href="https://arxiv.org/abs/2605.11508"><img src="https://img.shields.io/badge/Paper-arXiv-b31b1b.svg" alt="Paper"></a>
+  <a href="https://pan.baidu.com/s/1Zp8p0xtcmW2Fchs45gAyqg?pwd=4rh5"><img src="https://img.shields.io/badge/Dataset-UHV--4K-2932e1.svg?logo=baidu&logoColor=white" alt="UHV-4K Dataset"></a>
 </p>
 
 <p>
