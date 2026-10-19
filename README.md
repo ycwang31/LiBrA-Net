@@ -2,26 +2,31 @@
 
 <h1>🌫️ LiBrA-Net: Lie-Algebraic Bilateral Affine Fields for Real-Time 4K Video Dehazing</h1>
 
-<hr>
-
 <p>
 🔗 <a href="https://arxiv.org/abs/2605.11508">arXiv</a> |
-📄 <a href="https://arxiv.org/pdf/2605.11508">PDF</a> |
 💾 <a href="https://pan.baidu.com/s/1Zp8p0xtcmW2Fchs45gAyqg?pwd=4rh5">UHV-4K Dataset</a>
 </p>
 
 <p>
-Yongcong Wang,
-Chengchao Shen<sup>†</sup>,
-Guangwei Gao,
-Wei Wang,
-Pengwen Dai,
-Dianjie Lu,
-Guijuan Zhang,
-Zhuoran Zheng<sup>†</sup>
+<a href="https://ycwang31.github.io/">Yongcong Wang</a><sup>1</sup>,
+Chengchao Shen<sup>1,*</sup>,
+Guangwei Gao<sup>2</sup>,
+Wei Wang<sup>3</sup>,
+Pengwen Dai<sup>3</sup>,
+Dianjie Lu<sup>4</sup>,
+Guijuan Zhang<sup>4</sup>,
+Zhuoran Zheng<sup>5,*</sup>
 </p>
 
-<p><sup>†</sup>Corresponding Authors</p>
+<p>
+<sup>1</sup>Central South University,
+<sup>2</sup>Nanjing University of Science and Technology,
+<sup>3</sup>Sun Yat-sen University,
+<sup>4</sup>Shandong Normal University,
+<sup>5</sup>National University of Defense Technology
+</p>
+
+<p><sup>*</sup>Corresponding Authors</p>
 
 <img src="assets/teaser.png" width="100%" alt="LiBrA-Net teaser">
 
