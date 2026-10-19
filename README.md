@@ -28,7 +28,7 @@
 
 <p><sup>📧</sup>Corresponding Authors</p>
 
-<img src="assets/teaser.webp" width="100%" alt="LiBrA-Net teaser">
+<img src="assets/teaser.png" width="100%" alt="LiBrA-Net teaser">
 
 </div>
 
