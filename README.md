@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>🌫️ LiBrA-Net: Lie-Algebraic Bilateral Affine Fields for Real-Time 4K Video Dehazing</h1>
+<h1><img src="assets/logo.png" height="100" align="left" alt="LiBrA-Net logo">LiBrA-Net: Lie-Algebraic Bilateral Affine Fields<br>for Real-Time 4K Video Dehazing</h1>
 
 <p>
   <a href="https://arxiv.org/abs/2605.11508"><img src="https://img.shields.io/badge/Paper-arXiv-b31b1b.svg?logo=arxiv&logoColor=white" alt="Paper"></a>
